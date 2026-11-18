@@ -111,6 +111,69 @@
       integrity="sha256-Zshqz6X+Rs2Rf5sPtiSba+rwLBL1ZTyLBppbYOstR9M="
       crossorigin="anonymous"
     />
+    <style>
+      .image-modal {
+          display: none;
+          position: fixed;
+          z-index: 99999;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.85);
+          justify-content: center;
+          align-items: center;
+      }
+
+      .modal-image {
+          max-width: 85%;
+          max-height: 85vh;
+          object-fit: contain;
+          border-radius: 8px;
+      }
+
+      .close-modal {
+          position: absolute;
+          top: 20px;
+          right: 35px;
+          color: white;
+          font-size: 40px;
+          cursor: pointer;
+      }
+    </style>
+    <script>
+      const images = document.querySelectorAll('.zoom-image');
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      const closeBtn = document.querySelector('.close-modal');
+
+      // Open popup
+      images.forEach(function(image) {
+          image.addEventListener('click', function() {
+              modal.style.display = 'flex';
+              modalImage.src = this.src;
+          });
+      });
+
+      // Close using X
+      closeBtn.addEventListener('click', function() {
+          modal.style.display = 'none';
+      });
+
+      // Close by clicking outside image
+      modal.addEventListener('click', function(event) {
+          if (event.target === modal) {
+              modal.style.display = 'none';
+          }
+      });
+
+      // Close using Escape key
+      document.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape') {
+              modal.style.display = 'none';
+          }
+      });
+    </script>
   </head>
   <!--end::Head-->
   <!--begin::Body-->
@@ -150,6 +213,11 @@
         <!--end::App Content Header-->
         <!--begin::App Content-->
         <div class="app-content">
+          <!-- Image Zoom Modal -->
+          <div id="imageModal" class="image-modal">
+              <span class="close-modal">&times;</span>
+              <img id="modalImage" class="modal-image" alt="Full Image">
+          </div>
           <!--begin::Container-->
           <div class="container-fluid">
             <!--begin::Row-->
@@ -157,28 +225,34 @@
              <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Firstname</th>
-                        <th>Lastname</th>
                         <th>Email</th>
+                        <th>Contact</th>
+                        <th>Address</th>
+                        <th>Gender</th>
+                        <th>DOB</th>
+                        <th>Image</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                    </tr>
+                    @foreach($records as $record)
+                      <tr>
+                          <td>{{ $record->id }}</td>
+                          <td>{{ $record->name }}</td>
+                          <td>{{ $record->email }}</td>
+                          <td>{{ $record->phone }}</td>
+                          <td>{{ $record->address }}</td>
+                          <td>{{ $record->gender }}</td>
+                          <td>{{ $record->dob }}</td>
+                          <td><image src="{{ asset('upload/' . $record->image) }}" alt="Image" style="width: 100px; height: auto;" id="myImage" class="zoom-image" alt="Product Image"></td>
+                          <td colspan="2" align="center">
+                            <a href="" class="btn btn-primary">Edit</a>
+                            <a href="" class="btn btn-danger">Delete</a>
+                          </td>
+                      </tr>
+                    @endforeach
                 </tbody>
             </table>
 

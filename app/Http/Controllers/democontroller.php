@@ -22,7 +22,8 @@ class democontroller extends Controller
     //manage user list 
     public function manage_user()
     {
-        return view('admin.manage_user');
+        $records = DB::table('students')->get();
+        return view('admin.manage_user', compact('records'));
     }
     //add record
     public function add_record()
