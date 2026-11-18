@@ -75,4 +75,22 @@ class democontroller extends Controller
 
         
     }
+    public function delete_record($id){
+        
+        $record = DB::table('students')->where('id', $id)->first();
+        if ($record) {
+            // Delete the image file if it exists
+            $imagePath = public_path('upload/' . $record->image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            // Delete the record from the database
+            DB::table('students')->where('id', $id)->delete();
+
+            return redirect()->route('manageuser')->with('success', 'Record deleted successfully.');
+        } else {
+            return redirect()->route('manageuser')->with('error', 'Record not found.');
+        }
+    }
 }

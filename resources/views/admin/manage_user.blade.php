@@ -248,8 +248,8 @@
                           <td>{{ $record->dob }}</td>
                           <td><image src="{{ asset('upload/' . $record->image) }}" alt="Image" style="width: 100px; height: auto;" id="myImage" class="zoom-image" alt="Product Image"></td>
                           <td colspan="2" align="center">
-                            <a href="" class="btn btn-primary">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            <a href="{{ route('update_record', ['id' => $record->id]) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('delete_record', ['id' => $record->id]) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
                           </td>
                       </tr>
                     @endforeach

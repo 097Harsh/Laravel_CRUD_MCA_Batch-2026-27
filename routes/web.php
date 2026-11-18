@@ -13,3 +13,5 @@ Route::get('/manageuser',[democontroller::class,'manage_user'])->name('manageuse
 //add record 
 Route::get('/add',[democontroller::class,'add_record'])->name('add')->middleware('auth');
 Route::post('/add_user',[democontroller::class,'add_user'])->name('add_user')->middleware('auth');
+//delete record
+Route::get('/delete/{id}',[democontroller::class,'delete_record'])->name('delete_record')->middleware('auth');
