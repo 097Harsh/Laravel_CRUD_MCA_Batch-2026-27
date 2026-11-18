@@ -162,11 +162,12 @@
                   <div class="card-header">
                     <div class="card-title">Add Record</div>
                   </div>
-                  <form method="post">
+                  <form method="post" action="{{ route('add_user') }}" enctype="multipart/form-data">
+                    @csrf
                     <div class="card-body">
                       <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" />
+                        <input type="text" class="form-control" id="name" name="name" required/>
                       </div>
                       <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -174,17 +175,19 @@
                           type="email"
                           class="form-control"
                           id="email"
+                          name="email"
                           aria-describedby="emailHelp"
+                          required
                         />
                         
                       </div>
                       <div class="mb-3">
                         <label for="phone" class="form-label">Contact</label>
-                        <input type="number" class="form-control" id="phone" name="phone" />
+                        <input type="number" class="form-control" id="phone" name="phone" required/>
                       </div>
                       <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <textarea class="form-control" id="address" name="address"></textarea>
+                        <textarea class="form-control" id="address" name="address" required></textarea>
                       </div>
                       <div class="mb-3">
                           <label class="form-label d-block">Gender</label>
@@ -212,16 +215,16 @@
                       </div>
                       <div class="mb-3">
                         <label for="dob" class="form-label">DOB</label>
-                        <input type="date" class="form-control" id="dob" name="dob" />
+                        <input type="date" class="form-control" id="dob" name="dob" required/>
                       </div>
                       <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="image" />
+                        <input type="file" class="form-control" id="image" name="image" required />
                         <label class="input-group-text" for="image">Upload Image</label>
                       </div>
                      
                     </div>
                     <div class="card-footer">
-                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="submit" id="submit" name="submit" class="btn btn-primary">Submit</button>
                     </div>
                   </form>
                 </div>

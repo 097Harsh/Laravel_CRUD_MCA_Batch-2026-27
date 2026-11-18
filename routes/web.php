@@ -12,3 +12,4 @@ Route::get('/dashboard',[democontroller::class,'dashboard'])->name('dashboard')-
 Route::get('/manageuser',[democontroller::class,'manage_user'])->name('manageuser')->middleware('auth');
 //add record 
 Route::get('/add',[democontroller::class,'add_record'])->name('add')->middleware('auth');
+Route::post('/add_user',[democontroller::class,'add_user'])->name('add_user')->middleware('auth');
