@@ -4,7 +4,7 @@
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title> Dashboard</title>
+    <title> Manage User</title>
 
     <!--begin::Theme Init (prevents flash of incorrect theme on load, #6043)-->
     <script>
@@ -248,7 +248,7 @@
                           <td>{{ $record->dob }}</td>
                           <td><image src="{{ asset('upload/' . $record->image) }}" alt="Image" style="width: 100px; height: auto;" id="myImage" class="zoom-image" alt="Product Image"></td>
                           <td colspan="2" align="center">
-                            <a href="{{ route('update_record', ['id' => $record->id]) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('edit_record', ['id' => $record->id]) }}" class="btn btn-primary">Edit</a>
                             <a href="{{ route('delete_record', ['id' => $record->id]) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
                           </td>
                       </tr>

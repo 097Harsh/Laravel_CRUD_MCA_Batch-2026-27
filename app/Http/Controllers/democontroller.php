@@ -93,4 +93,53 @@ class democontroller extends Controller
             return redirect()->route('manageuser')->with('error', 'Record not found.');
         }
     }
+    //edit record
+    public function edit_record($id)
+    {
+        $record = DB::table('students')->where('id', $id)->first();
+        $courses = DB::table('course')->get();
+        if ($record) {
+            return view('admin.edit_record', compact('record', 'courses'));
+        } else {
+            return redirect()->route('manageuser')->with('error', 'Record not found.');
+        }
+    }
+    //updating record 
+    public function update_user(Request $request)
+    {
+        $record = DB::table('students')->where('id', $request->id)->first();
+        if ($record) {
+            // Check if a new image is uploaded
+            if ($request->hasFile('image')) {
+                // Delete the old image file if it exists
+                $oldImagePath = public_path('upload/' . $record->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+
+                // Upload the new image
+                $imageName = time() . '.' . $request->image->extension();
+                $request->image->move(public_path('upload'), $imageName);
+            } else {
+                // If no new image is uploaded, keep the old image name
+                $imageName = $record->image;
+            }
+
+            // Update the record in the database
+            DB::table('students')->where('id', $request->id)->update([
+                'name'      => $request->name,
+                'email'     => $request->email,
+                'address'   => $request->address,
+                'gender'    => $request->gender,
+                'course_id' => $request->course,
+                'phone'     => $request->phone,
+                'image'     => $imageName,
+                'dob'       => $request->dob
+            ]);
+
+            return redirect()->route('manageuser')->with('success', 'Record updated successfully.');
+        } else {
+            return redirect()->route('manageuser')->with('error', 'Record not found.');
+        }
+    }
 }

@@ -15,3 +15,7 @@ Route::get('/add',[democontroller::class,'add_record'])->name('add')->middleware
 Route::post('/add_user',[democontroller::class,'add_user'])->name('add_user')->middleware('auth');
 //delete record
 Route::get('/delete/{id}',[democontroller::class,'delete_record'])->name('delete_record')->middleware('auth');
+//edit record
+Route::get('/edit/{id}',[democontroller::class,'edit_record'])->name('edit_record')->middleware('auth');
+Route::post('/update_user',[democontroller::class,'update_user'])->name('update_user')->middleware('auth');
+//search recor
